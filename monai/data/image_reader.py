@@ -219,6 +219,9 @@ class ITKReader(ImageReader):
             # ignore deprecated, legacy members that cause issues
             if key.startswith("ITK_original_"):
                 continue
+            # ignore NRRD header which causes issues
+            if key.startswith("NRRD_measurement"):
+                continue
             meta_dict[key] = img_meta_dict[key]
         meta_dict["origin"] = np.asarray(img.GetOrigin())
         meta_dict["spacing"] = np.asarray(img.GetSpacing())
